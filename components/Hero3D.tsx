@@ -1,52 +1,8 @@
 'use client';
 
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
-import { useRef, useEffect } from 'react';
-import * as THREE from 'three';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
-function ProductModel() {
-  const modelRef = useRef<THREE.Group>(null);
-  const { scene } = useGLTF('/models/product.glb');
-
-  useEffect(() => {
-    if (!modelRef.current) return;
-
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: document.body,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: true,
-      },
-    })
-      .to(modelRef.current.rotation, { y: Math.PI * 2, x: Math.PI * 0.5, ease: 'none' }, 0)
-      .to(modelRef.current.position, { x: 1.8, y: -0.2, ease: 'none' }, 0.2)
-      .to(modelRef.current.scale, { x: 1.4, y: 1.4, z: 1.4, ease: 'none' }, 0.35)
-      .to(modelRef.current.position, { x: -1.8, y: 0.3, ease: 'none' }, 0.6)
-      .to(modelRef.current.rotation, { y: Math.PI * 4, x: Math.PI * 1, ease: 'none' }, 0.6)
-      .to(modelRef.current.scale, { x: 0.9, y: 0.9, z: 0.9, ease: 'none' }, 0.85);
-  }, []);
-
-  useFrame(() => {
-    if (!modelRef.current) return;
-    modelRef.current.rotation.y += 0.001;
-  });
-
-  return (
-    <primitive
-      ref={modelRef}
-      object={scene}
-      scale={1.2}
-      position={[0, -0.2, 0]}
-      rotation={[0.2, 0.4, 0]}
-    />
-  );
-}
+import ProductModel from './ProductModel';
 
 export default function Hero3D() {
   return (
@@ -84,7 +40,7 @@ export default function Hero3D() {
       </div>
 
       <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
-        <ambientLight intensity={0.8} />
+        <ambientLight intensity={0.9} />
         <directionalLight position={[3, 3, 5]} intensity={2.5} />
         <pointLight position={[-3, -2, 4]} intensity={1.8} />
         <Environment preset="city" />
