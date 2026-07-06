@@ -1,7 +1,7 @@
 'use client';
 
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment, useGLTF } from '@react-three/drei';
+import { Environment } from '@react-three/drei';
 import { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 import gsap from 'gsap';
